@@ -1,0 +1,11 @@
+<%= render partial: 'spree/admin/shared/error_messages', locals: { target: @vendor } %>
+
+<%= form_for [:admin, @vendor] do |f| %>
+  <div class="well">
+    <fieldset data-hook="admin_vendor_new_form">
+      <legend><%= Spree.t(:new_vendor) %></legend>
+      <%= render partial: 'form', locals: { f: f } %>
+      <%= render partial: 'spree/admin/shared/new_resource_links' %>
+    </fieldset>
+  </div>
+<% end %>
