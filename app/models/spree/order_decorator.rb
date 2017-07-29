@@ -6,14 +6,16 @@ Spree::Order.class_eval do
   after_update :create_suborders
 
   def create_suborders
-    self.line_items.each do |li|
-      suborder = Spree::Order.where(:order => self, :vendor => li.variant.product.vendor).first_or_create do |s|
-        s.order = self
-        s.vendor = li.variant.product.vendor
+    if self.payment_state == "paid" and self.suborders.count == 0
+      self.line_items.each do |li|
+        suborder = Spree::Order.where(:order => self, :vendor => li.variant.product.vendor).first_or_create do |s|
+          s.order = self
+          s.vendor = li.variant.product.vendor
+        end
+        li.update(:order => suborder)
       end
-      li.update(:order => suborder)
+      self.update_with_updater!
+      self.suborders.each {|s| s.update_with_updater!}
     end
-    self.update_with_updater!
-    self.suborders.each {|s| s.update_with_updater!}
   end
 end
