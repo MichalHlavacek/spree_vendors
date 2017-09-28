@@ -49,16 +49,33 @@
     <thead>
       <tr data-hook="admin_vendors_index_headers">
         <th>
-
+          Name
         </th>
-        <th data-hook="admin_vendors_index_header_actions" class="actions"></th>
+        <th>
+          Manager
+        </th>
+        <th>
+          Address
+        </th>
+        <th>
+          Web
+        </th>
+        <th>
+          Phone
+        </th>
+        <th data-hook="admin_vendors_index_header_actions" class="actions text-right">Actions</th>
       </tr>
     </thead>
     <tbody>
       <% @vendors.each do |vendor|%>
         <tr id="<%= spree_dom_id vendor %>" data-hook="admin_vendors_index_rows">
           <td class='vendor_email'><%=link_to vendor.name, edit_admin_vendor_url(vendor) %></td>
+          <td class='vendor_manager'><%= vendor.manager.email if vendor.manager  %></td>
+          <td class='vendor_address'><%= vendor.address %></td>
+          <td class='vendor_web'><%= vendor.web %></td>
+          <td class='vendor_phone'><%= vendor.phone %></td>          
           <td data-hook="admin_vendors_index_row_actions" class="actions actions-2 text-right">
+            <%= link_to "Approve", admin_vendor_approve_path(vendor), :class => 'btn btn-success btn-sm', :data => {:confirm => "Approve #{vendor.name}?"} if (can?(:edit, vendor) and vendor.approved_at.nil?) %>
             <%= link_to_edit vendor, no_text: true if can?(:edit, vendor) %>
             <%= link_to_delete vendor, no_text: true if can?(:delete, vendor) %>
           </td>

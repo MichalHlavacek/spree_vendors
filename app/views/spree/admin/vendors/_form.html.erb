@@ -7,7 +7,22 @@
         <%= f.text_field :name, class: 'form-control' %>
       </div>
 
-      <div class="form-group" data-hook="price">
+      <div class="form-group" data-hook="business_type">
+        <%= f.label :business_type, "Business type" %>
+        <%= f.text_field :business_type, class: 'form-control' %>
+      </div>
+
+      <div class="form-group" data-hook="phone">
+        <%= f.label :phone, "Phone" %>
+        <%= f.text_field :phone, class: 'form-control' %>
+      </div>
+
+      <div class="form-group" data-hook="web">
+        <%= f.label :web, "Web" %>
+        <%= f.text_field :web, class: 'form-control' %>
+      </div>
+
+      <div class="form-group" data-hook="address">
         <%= f.label :address, Spree.t(:address) %>
         <%= f.text_field :address, class: 'form-control' %>
       </div>
